@@ -1,23 +1,37 @@
 {
   "name": "backendnew",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-modules index.js",
-    "dev": "nodemon server.js"
+    "start": "nodemon --exec node --no-warnings=ExperimentalWarning --loader ts-node/esm index.ts",
+    "dev": "nodemon --watch './**/*.ts' --exec ts-node"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "apollo-server": "^3.13.0",
+    "apollo-server-express": "^3.13.0",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "graphql": "^16.10.0",
+    "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.3",
-    "nodemon": "^3.1.9"
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.10",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.7.2"
   }
 }

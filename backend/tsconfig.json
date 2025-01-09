@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",                // Use ESNext for module support
+    "moduleResolution": "node",
+    "esModuleInterop": true,           // Make sure TypeScript knows how to handle default imports
+    "strict": true,
+    "skipLibCheck": true,
+    "emitDecoratorMetadata" :true,
+    "experimentalDecorators" : true,
+    "resolveJsonModule" : true,
+    "allowImportingTsExtensions": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",                // Optional: If you want to specify an output folder
+    "baseUrl": ".",                    // Optional: If you want to use relative imports
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "*.ts"],
+  // "include": ["index.ts"],           // Your TypeScript files to be compiled
+  "exclude": ["node_modules"]           // Exclude node_modules folder from being compiled
+}

@@ -1,11 +1,12 @@
 import React from 'react';
-import ExampleComponent from './components/ExampleComponent';
+import Navigation from './routes';
+import './App.css';
+import './styles/index.css';
 
 function App() {
     return (
         <div>
-            <h1>Welcome to the React App</h1>
-            <ExampleComponent />
+            <Navigation />
         </div>
     );
 }
