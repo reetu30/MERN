@@ -8,6 +8,7 @@ import Footer from '../components/common/Footer';
 import Team from '../components/Pages/team';
 import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
+import TodoList from '../components/Todo/todo-list';
 
 const Navigation = () => {
   return (
@@ -21,6 +22,7 @@ const Navigation = () => {
         <Route path="/team" element={<Team />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
+        <Route path="/todo" element={<TodoList/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

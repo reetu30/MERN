@@ -29,6 +29,9 @@ const Header = () => {
               <li>
                 <Link to="/contact" className="header-link">Contact</Link>
               </li>
+              <li>
+                <Link to="/todo" className="header-link">To Do</Link>
+              </li>
             </ul>
           </div>
         </div>
