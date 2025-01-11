@@ -26,6 +26,10 @@
     .sign-input {
         @apply block mb-2 text-sm font-medium text-gray-900 dark:text-white
     }
+
+    .sign-checkbox {
+        @apply w-4 h-4 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 bg-gray-50
+    }
 }
 
 @layer utilities {

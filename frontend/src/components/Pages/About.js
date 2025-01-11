@@ -19,7 +19,7 @@ const About = () => {
             </div>
           </div>
           <div className="mt-12 md:mt-0">
-            <img src={ABOUT_IMG} alt="About Us Image" className="object-cover rounded-lg shadow-md" />
+            <img src={ABOUT_IMG} alt="About Us" className="object-cover rounded-lg shadow-md" />
           </div>
         </div>
       </div>

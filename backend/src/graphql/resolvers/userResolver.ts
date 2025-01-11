@@ -48,9 +48,9 @@ export const userResolver = {
     }
   },
   Mutation : {
-    createUser : async (_:any, {name, email}:{name:string, email: string}) => {
+    createUser : async (_:any, {name, email, password}:{name:string, email: string, password:string}) => {
       const userRepo = AppDataSource.getRepository("User");
-      const newUser = userRepo.create({name, email});
+      const newUser = userRepo.create({name, email, password});
       await userRepo.save(newUser);
       return newUser;
     }

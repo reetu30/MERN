@@ -1,14 +1,38 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 // Define the User entity
-@Entity('users')  // This maps to the 'users' table
+@Entity('users') 
 export class User {
-  @PrimaryGeneratedColumn("uuid")  // Auto-incrementing primary key
+  @PrimaryGeneratedColumn()  
   id: any;
   
-  @Column("varchar")  // Name column
-  name:string | undefined;
+  @Column("varchar") 
+  name!:string;
 
-  @Column("varchar", {unique: true})  // Email column
-  email:string | undefined;
+  @Column("varchar", {unique: true}) 
+  email!:string;
+
+  @Column("varchar") 
+  password!:string;
+
+  @Column("enum", {enum: ['user', 'admin'], default: 'user'}) 
+  role!: 'user' | 'admin';
+
+  @CreateDateColumn({name: 'created_at'})
+  createdAt!: Date;
+
+  @UpdateDateColumn({name: 'updated_at'})  
+  updatedAt!: Date;
+
+  @UpdateDateColumn({name: 'deleted_at'}) 
+  deletedAt!: Date;
+
+  @Column({type: "boolean", default: true})
+  isActive!:boolean;
+
+  @Column({type: "boolean", default: false})
+  isVerified!:boolean;
+
+  @Column({type: "varchar", nullable: true})
+  verificationToken!:string;
 }

@@ -30,7 +30,6 @@ To get started with the frontend project, follow these steps:
 
 ## Folder Structure
 
-- `public/`: Contains the static files, including `index.html`.
 - `src/`: Contains the React components and application logic.
   - `App.js`: The main application component.
   - `index.js`: The entry point for the React application.

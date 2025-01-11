@@ -1,7 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { config as configDotenv } from 'dotenv';
-// import itemRoutes from './src/routes/itemRoutes';
+// import itemRoutes from './src/routes/routes.ts';
 import { ApolloServer } from 'apollo-server-express';
 import { apolloServer } from './src/config/apolloServer.ts';
 import AppDataSource from './src/database/config.ts';
