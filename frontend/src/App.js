@@ -8,10 +8,10 @@ import UseContextHook from './components/hooks/useContextHook/useContextHook';
 function App() {
     return (
         <>
-        <ThemeProvider>
+        {/* <ThemeProvider> */}
             <Navigation />
-        <UseContextHook />
-        </ThemeProvider>
+        {/* <UseContextHook /> */}
+        {/* </ThemeProvider> */}
         </>
     );
 }

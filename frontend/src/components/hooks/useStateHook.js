@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import UseEffectHook from './UseEffectHook';
-import UseContextHook from './useContextHook/useContextHook';
+// import UseContextHook from './useContextHook/useContextHook';
 import UseRefHook from './useRefHook/UseRefHook';
+import ReduxExample from '../redux/reduxExample';
 
 const UseStateHook = () => {
     const [count, setCount] = useState(0);
@@ -13,6 +14,8 @@ const UseStateHook = () => {
     }
   return (
     <div className='text-center m-auto'>
+      <ReduxExample></ReduxExample>
+        <hr></hr>
       <UseRefHook></UseRefHook>
         <hr></hr>
         {/* <UseContextHook></UseContextHook> */}
