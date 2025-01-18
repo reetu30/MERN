@@ -5,3 +5,14 @@ export const TEAM_IMG1 = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/
 export const TEAM_IMG2 = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
 export const TEAM_IMG3 = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
 export const TEAM_IMG4 = "https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/sofia-mcguire.png"
+export const lightTheme = {
+    backgroundColor: "#ffffff",
+    color: "#000000",
+    name: "Light Theme"
+};
+export const darkTheme = {
+    backgroundColor: "#333333",
+    color: "#ffffff",
+    name: "Dark Theme"
+};
+export const URL_EFFECT = "https://jsonplaceholder.typicode.com/posts/2"

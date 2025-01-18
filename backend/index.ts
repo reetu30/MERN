@@ -5,12 +5,13 @@ import { config as configDotenv } from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
 import { apolloServer } from './src/config/apolloServer.ts';
 import AppDataSource from './src/database/config.ts';
+import cors from 'cors';
 
 configDotenv();
 const app:any = express();
 app.use(bodyParser.json());
 // app.use('/api/items', itemRoutes);
-
+app.use(cors());
 await apolloServer.start()
 
 AppDataSource.initialize()

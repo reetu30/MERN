@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { User } from '../graphql/entities/userEntity.ts';
+import { User } from '../models/User.ts';
 import { DataSource } from 'typeorm';
 
 // Load environment variables from .env file
@@ -19,5 +19,4 @@ const AppDataSource:any = new DataSource({
   migrations: [],
   subscribers: []
 });
-
 export default AppDataSource;

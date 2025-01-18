@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Message from '../Message/Message';
 import axios from 'axios'
-// import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 // GraphQL mutation
-// const CreateUser = gql`
-//     mutation CreateUser($name: String!, $email: String!, $password: String!) {
-//         createUser(name: $name, email: $email, password: $password) {
-//             name
-//             email
-//             password
-//         }
-//     }
-// `;
+const SignupMutation = gql`
+    mutation CreateUser($name: String!, $email: String!, $password: String!) {
+        createUser(name: $name, email: $email, password: $password) {
+            name
+            email
+            password
+        }
+    }
+`;
 
 const SignUp = () => {
     const [name, setName] = useState('')
@@ -22,6 +22,7 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
     const [acceptTerms, setAcceptTerms] = useState(false)
+    const [signUp, {data, loading, errorMsg}] = useMutation(SignupMutation);
 
     const handleClick = (e)=>{
         e.preventDefault()
@@ -38,17 +39,21 @@ const SignUp = () => {
 
     const handleSubmit = async()=>{
         try {
-            const url = 'https://jsonplaceholder.typicode.com/posts'
-            const response = await axios.post(url, {name, email, password})
-            console.log(response);
+            signUp({
+                variables: { name, email, password }
+            });
+            // const url = 'https://jsonplaceholder.typicode.com/posts/2'
+            // const response = await axios.get(url)
+            // console.log(response, "===>response");
         } catch (error) {
-            setError(error.response.data.error)
+            console.log(error, "error");
+            setError(error)
         }
     }
     
     useEffect(()=>{
         handleSubmit()
-    }, [])
+    }, [data])
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">

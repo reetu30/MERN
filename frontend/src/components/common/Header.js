@@ -32,6 +32,9 @@ const Header = () => {
               <li>
                 <Link to="/todo" className="header-link">To Do</Link>
               </li>
+              <li>
+                <Link to="/hook" className="header-link">Hooks</Link>
+              </li>
             </ul>
           </div>
         </div>

@@ -1,9 +1,9 @@
+import { loginUSer, registerUser } from "../../User/service/User.service.ts";
 import AppDataSource from "../../database/config.ts";
-import { User } from "../entities/userEntity.ts";
+import { User } from "../../models/User.ts";
 
 export const userResolver = {
   Query: {
-    hello: () => 'Hello, World!',
     allUser: async()=> {
         try {
           const result:any = await AppDataSource.getRepository(User).find();
@@ -49,10 +49,13 @@ export const userResolver = {
   },
   Mutation : {
     createUser : async (_:any, {name, email, password}:{name:string, email: string, password:string}) => {
-      const userRepo = AppDataSource.getRepository("User");
-      const newUser = userRepo.create({name, email, password});
-      await userRepo.save(newUser);
-      return newUser;
-    }
+      const data:any = {name, email, password, role:"user"}
+      const result = await registerUser(data);
+      return result;
+    },
+    loginUSer: async(_:any, {email, password}: {email: string, password:string}) => {
+      const result:any = {email, password, role:"user"}
+      return await loginUSer(result)
+    },
   },
 };
