@@ -9,9 +9,8 @@ import cors from 'cors';
 
 configDotenv();
 const app:any = express();
-app.use(bodyParser.json());
+app.use('/grpahql', cors<cors.CorsRequest>, express.json(), bodyParser.json());
 // app.use('/api/items', itemRoutes);
-app.use(cors());
 await apolloServer.start()
 
 AppDataSource.initialize()

@@ -8,11 +8,11 @@ import store  from './components/redux/store';
 
 ReactDOM.render(
   // <React.StrictMode>
-  <Provider store={store}>
   <ApolloProvider client={client}>
+  <Provider store={store}>
       <App />
-    </ApolloProvider>
-    </Provider>,
+    </Provider>
+    </ApolloProvider>,
   // </React.StrictMode>,
   document.getElementById('root')
 );

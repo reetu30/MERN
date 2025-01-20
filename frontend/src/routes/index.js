@@ -10,22 +10,30 @@ import Login from '../components/Auth/Login';
 import SignUp from '../components/Auth/SignUp';
 import TodoList from '../components/Todo/todo-list';
 import UseStateHook from '../components/hooks/useStateHook';
+import Profile from '../components/Profile/Profile';
 
 const Navigation = () => {
+  const {token} = JSON.parse(localStorage.getItem('data'))
+  
   return (
     <div>
       <BrowserRouter>
         <Header />
         <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<SignUp/>} />
-        <Route path="/todo" element={<TodoList/>} />
-        <Route path="/hook" element={<UseStateHook/>} />
-        </Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/todo" element={<TodoList/>} />
+          <Route path="/hook" element={<UseStateHook/>} />
+            {token ? (
+              <Route path="/profile" element={<Profile/>} />
+            ): (
+              <Route path="/login" element={<Login/>} />,
+              <Route path="/signup" element={<SignUp/>} />
+            )}
+
+          </Routes>
         <Footer />
       </BrowserRouter>
     </div>

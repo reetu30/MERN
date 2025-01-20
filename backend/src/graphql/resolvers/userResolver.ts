@@ -30,6 +30,19 @@ export const userResolver = {
           ;
         }
     },
+    getUserByEmail: async(id:string | number)=> {
+        try {
+          const result:any = await AppDataSource.getRepository(User).findOneBy({id});
+          if (!result) {
+            throw new Error("No users found");
+          }
+          return result 
+        } catch (error) {
+          console.error(error)
+          throw new Error("Error in fetching all users");
+          ;
+        }
+    },
     getAllData: async(_: any, { id }: { id: string })=> {
         try {          
           const allUser:any = await AppDataSource.getRepository(User).find();

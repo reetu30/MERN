@@ -1,21 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Message from '../Message/Message';
+import axios from 'axios'
 import { gql, useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 // GraphQL mutation
-const signupMutation = gql`
-mutation CreateUser($name: String!, $email: String!, $password: String!) {
-  createUser(name: $name, email: $email, password: $password) {
-    user {
-      name
-      email
-      password
+const SignupMutation = gql`
+    mutation CreateUser($name: String!, $email: String!, $password: String!) {
+        createUser(name: $name, email: $email, password: $password) {
+            name
+            email
+            password
+        }
     }
-    token
-  }
-}
 `;
 
 const SignUp = () => {
@@ -23,52 +20,48 @@ const SignUp = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [errorMsg, setErrorMsg] = useState('')
+    const [error, setError] = useState('')
     const [acceptTerms, setAcceptTerms] = useState(false)
-    const [createUser, { loading, error, data }] = useMutation(signupMutation);
-    const navigate = useNavigate()
+    const [signUp, {data, loading, errorMsg}] = useMutation(SignupMutation);
 
-    const handleClick = async(e)=>{
+    const handleClick = (e)=>{
         e.preventDefault()
         
         if(!name || !email || !password || !confirmPassword || !acceptTerms){
-            setErrorMsg("All fields are required")
+            setError("All fields are required")
         }else if(password !== confirmPassword){
-            setErrorMsg("Password do not match")
+            setError("Password do not match")
         } else {
+            setError("")
             console.log("All fields are filled");
-            try {
-                const response = await createUser({
-                  variables: { name, email, password },
-                });
-                const { user, token } = response.data.createUser;
-                
-                // Save the token in localStorage for further requests
-                localStorage.setItem('data', JSON.stringify({token, role:user.role, name:user.name, email:user.email}));
-                // Reset the form fields
-                setName('');
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
-                setAcceptTerms(false);
-
-                if (user.role == "admin") {
-                    navigate('/admin-dashboard');
-                } else {
-                    navigate('/profile')
-                }
-                
-              } catch (err) {
-                console.error('Error creating user:', err);
-            }
         }
     }
+
+    const handleSubmit = async()=>{
+        try {
+            if (name && email && password) {
+                signUp({
+                    variables: { user:{name, email, password} }
+                });
+            }
+            setError("")
+            // const url = 'https://jsonplaceholder.typicode.com/posts/2'
+            // const response = await axios.get(url)
+            // console.log(response, "===>response");
+        } catch (error) {
+            console.log(error, "error");
+            setError(error)
+        }
+    }
+    
+    useEffect(()=>{
+        handleSubmit()
+    }, [data])
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                {errorMsg && (<Message prop={{type:"error", message:errorMsg}} />)}
-                {data && ( <Message prop={{type:"success", message:`Signed up successfully! Welcome, ${data.createUser.user.name}.`}} />)}
+                {error && (<Message prop={{type:"error", message:error}} />)}
 
                 <div  className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div  className="p-6 space-y-4 md:space-y-6 sm:p-8">

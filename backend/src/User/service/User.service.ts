@@ -50,3 +50,10 @@ export const loginUSer = async (data: UserInterface) => {
     const token = generateToken(user.id)
     return { user, token }
 }
+
+export const getUserByEmail = async(email:string) => {
+    const user = AppDataSource.getRepository(User).findOneBy({email});
+    if (!user) throw new Error("User Not found");
+
+    return user;
+}

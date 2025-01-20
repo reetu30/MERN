@@ -6,6 +6,7 @@ export const userSchema =  gql`
         name: String!
         email: String!
         password : String!
+        role: String!
     }
     type AuthResponse {
         token: String!,
@@ -15,6 +16,7 @@ export const userSchema =  gql`
         allUser: [User]
         users : [User]
         getUserById(id: ID!) : User
+        getUserByEmail(email: String!) : User
         getAllData(id: ID!) : UserResponse
     }
     type Mutation {
