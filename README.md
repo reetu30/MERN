@@ -6,7 +6,10 @@ This project is a full-stack web application built using the MERN stack, which i
 
 - **MongoDB**: A NoSQL database for storing and retrieving data.
 - **Express.js**: A web application framework for Node.js.
-- **React**: A JavaScript library for building user interfaces.
+- **Redux**: A state management library for JavaScript apps.
+- **TypeORM**: An ORM for TypeScript and JavaScript (ES7, ES6, ES5).
+- **GraphQL**: A query language for your API.
+- **PostgreSQL**: A powerful, open-source object-relational database system.
 - **Node.js**: A JavaScript runtime for server-side programming.
 
 ## Backend
