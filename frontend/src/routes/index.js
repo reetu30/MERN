@@ -11,12 +11,14 @@ import SignUp from '../components/Auth/SignUp';
 import TodoList from '../components/Todo/todo-list';
 import UseStateHook from '../components/hooks/useStateHook';
 import Profile from '../components/Profile/Profile';
+import { AuthProvider } from '../components/context/AuthContext';
+import PrivateRoute from './PrivateRoute';
+import Dashboard from '../components/Profile/Dashboard';
+import Unauthorized from './Unauthorized'
 
 const Navigation = () => {
-  const {token} = JSON.parse(localStorage.getItem('data'))
-  
   return (
-    <div>
+    <AuthProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -24,19 +26,25 @@ const Navigation = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/team" element={<Team />} />
-          <Route path="/todo" element={<TodoList/>} />
-          <Route path="/hook" element={<UseStateHook/>} />
-            {token ? (
-              <Route path="/profile" element={<Profile/>} />
-            ): (
-              <Route path="/login" element={<Login/>} />,
-              <Route path="/signup" element={<SignUp/>} />
-            )}
-
-          </Routes>
+          <Route path="/todo" element={<TodoList />} />
+          <Route path="/hook" element={<UseStateHook />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          
+          {/* Use element with PrivateRoute and pass the component directly */}
+          <Route 
+            path="/dashboard" 
+            element={<PrivateRoute element={<Dashboard />} roleRequired="admin" />} 
+          />
+          <Route 
+            path="/profile" 
+            element={<PrivateRoute element={<Profile />} roleRequired="user" />} 
+          />
+        </Routes>
         <Footer />
       </BrowserRouter>
-    </div>
+    </AuthProvider>
   )
 }
 

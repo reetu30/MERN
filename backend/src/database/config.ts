@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { User } from '../models/User.ts';
 import { DataSource } from 'typeorm';
+import { Contact } from '../models/Contact.ts';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -15,7 +16,7 @@ const AppDataSource:any = new DataSource({
   database: process.env.DB_DATABASE,
   synchronize: true,
   logging: false,
-  entities: [User],
+  entities: [User, Contact],
   migrations: [],
   subscribers: []
 });

@@ -1,4 +1,4 @@
-import Reac0t, {useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 
 const UseRefHook = () => {
    const name = useRef(null)

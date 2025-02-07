@@ -8,6 +8,12 @@ export const userSchema =  gql`
         password : String!
         role: String!
     }
+    type Contact {
+        id: ID!
+        email: String!
+        subject: String!
+        message: String!
+    }
     type AuthResponse {
         token: String!,
         user: User
@@ -22,6 +28,7 @@ export const userSchema =  gql`
     type Mutation {
         createUser(name: String!, email: String!, password: String!): AuthResponse
         loginUSer (email: String!, password: String!): AuthResponse
+        createContact(email: String!, subject: String!, message: String!): Contact
     }
     type UserResponse {
         allUser: [User]

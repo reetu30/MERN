@@ -1,3 +1,4 @@
+import { contact } from "../../Contact/service/contact.service.ts";
 import { loginUSer, registerUser } from "../../User/service/User.service.ts";
 import AppDataSource from "../../database/config.ts";
 import { User } from "../../models/User.ts";
@@ -70,5 +71,10 @@ export const userResolver = {
       const result:any = {email, password, role:"user"}
       return await loginUSer(result)
     },
+    createContact : async(_:any, {email, subject, message}: {email:String, subject:String, message:String}) => {
+      const data:any = {email, subject, message}
+      const result = await contact(data);
+      return result;
+    }
   },
 };

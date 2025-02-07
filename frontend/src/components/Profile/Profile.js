@@ -1,29 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery, gql } from '@apollo/client'
+import { useAuth } from '../context/AuthContext';
+import { jwtDecode as jwt_decode } from 'jwt-decode';
 
 const Profile = () => {
-    const {email} = JSON.parse(localStorage.getItem('data'))
+    const {token} = useAuth() 
+    const decoded = jwt_decode(token);
+    const id = decoded.id
+    const [profile, setProfile] = useState("")
     
     const getUser = gql`
-    query GetUserByEmail($email: String!) {
-        getUserByEmail(email: $email) {
-        id
+    query GetUserById($id: ID!) {
+        getUserById(id: $id) {
         name
         email
-        password
-        role
         }
     }
     `;
     const { loading, error, data } = useQuery(getUser, {
-        variables: { email },
-        skip: !email, // Skip query if no email is provided
-      });
+        variables: { id },
+        skip: !id, // Skip query if no id is provided
+    });
 
-    
+    useEffect(()=>{
+        setProfile(data?.getUserById)
+    }, [data])
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
-    
+
     return (
         <>
             <div className="bg-white overflow-hidden shadow rounded-lg border w-6/12 m-auto mt-4 mb-4">
@@ -42,7 +47,7 @@ const Profile = () => {
                                 Full name
                             </dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {data?.getUserByEmail?.name}
+                            {profile?.name}
                             </dd>
                         </div>
                         <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -50,7 +55,7 @@ const Profile = () => {
                                 Email address
                             </dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {email}
+                                {profile?.email}
                             </dd>
                         </div>
                         <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

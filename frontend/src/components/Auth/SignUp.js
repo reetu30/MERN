@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import Message from '../Message/Message';
 import { gql, useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useAuth } from '../context/AuthContext';
+import useCheckLogin from '../common/customHook/useCheckLogin';
 
 // GraphQL mutation
 const signupMutation = gql`
@@ -27,6 +29,9 @@ const SignUp = () => {
     const [acceptTerms, setAcceptTerms] = useState(false)
     const [createUser, { loading, error, data }] = useMutation(signupMutation);
     const navigate = useNavigate()
+    const {login, isAuthenticated, userRole} = useAuth()
+
+    useCheckLogin({isAuthenticated, userRole})
 
     const handleClick = async(e)=>{
         e.preventDefault()
@@ -41,21 +46,22 @@ const SignUp = () => {
                 const response = await createUser({
                   variables: { name, email, password },
                 });
-                const { user, token } = response.data.createUser;
-                
-                // Save the token in localStorage for further requests
-                localStorage.setItem('data', JSON.stringify({token, role:user.role, name:user.name, email:user.email}));
-                // Reset the form fields
-                setName('');
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
-                setAcceptTerms(false);
 
-                if (user.role == "admin") {
-                    navigate('/admin-dashboard');
+                if (response.data.createUser) {
+                    const { user, token } = response.data.createUser;
+                    setName('');
+                    setEmail('');
+                    setPassword('');
+                    setConfirmPassword('');
+                    setAcceptTerms(false);
+                    login({token, role:user.role})
+                    if (user.role === "admin") {
+                        navigate('/dashboard');
+                    } else {
+                        navigate('/profile')
+                    }
                 } else {
-                    navigate('/profile')
+                    setErrorMsg("Error signup failed")
                 }
                 
               } catch (err) {
@@ -63,6 +69,9 @@ const SignUp = () => {
             }
         }
     }
+
+    if(loading) return (<div>Loading...</div>)
+    if (error) return <div>Error occurred: {error.message}</div>;
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
